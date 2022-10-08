@@ -3,7 +3,6 @@ $(function () {
   $('#toolbox_color_2').val($('#toolbox_color').val());
   $('#toolbox_color').on('input', () => { $('#toolbox_color_2').val($('#toolbox_color').val()); });
   $('#toolbox_color_2').on('input', () => { $('#toolbox_color').val($('#toolbox_color_2').val()); });
-  $('#lastsubmit').text(new Date().toLocaleString());
 
   // load edit if id in hash
   if (location.hash?.length > 1)
@@ -88,6 +87,7 @@ function sendTeamJSON() {
     const content = await rawResponse.json();
     location.hash = content.id;
     $('#editlink').val(location.href);
+    $('#lastsubmit').text(new Date().toLocaleString());
     $('#success').prop("hidden", false);
   })();
 }
