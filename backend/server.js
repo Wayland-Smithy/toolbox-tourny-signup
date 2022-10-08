@@ -110,7 +110,7 @@ function DiscordPost(messageBody, response) {
   const options = {
     hostname: 'discord.com',
     port: 443,
-    path: secrets.hookURL + "?wait=true&thread_id=" + secrets.threadID, // BBTC testing channel
+    path: secrets.hookURL + "?wait=true&thread_id=" + secrets.threadID,
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -155,7 +155,7 @@ function DiscordEdit(msgID, messageBody, response) {
   const options = {
     hostname: 'discord.com',
     port: 443,
-    path: secrets.hookURL + "/messages/" + msgID + "?thread_id=" + secrets.threadID, // BBTC testing channel
+    path: secrets.hookURL + "/messages/" + msgID + "?thread_id=" + secrets.threadID,
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
