@@ -5,8 +5,8 @@ const { parse } = require('querystring');
 const secrets = require('../secrets.json');
 
 const options = {
-  key: fs.readFileSync('c:/Certbot/archive/api.toolbox-signup.com/privkey2.pem'),
-  cert: fs.readFileSync('c:/Certbot/archive/api.toolbox-signup.com/fullchain2.pem'),
+  key: fs.readFileSync('C:/Certbot/archive/api.toolbox-signup.com/privkey2.pem'),
+  cert: fs.readFileSync('C:/Certbot/archive/api.toolbox-signup.com/fullchain2.pem'),
 };
 
 const server = https.createServer(options, function (request, response) {
@@ -29,7 +29,7 @@ const server = https.createServer(options, function (request, response) {
       const queryObject = url.parse(reqUrl, true).query;
       console.log(queryObject.edit);
       if (!queryObject.edit) {
-        response.writeHead(403);
+        response.writeHead(403, { 'Access-Control-Allow-Origin': '*' });
         response.end();
         return;
       }
@@ -47,28 +47,28 @@ const server = https.createServer(options, function (request, response) {
         });
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
-          let teamData;
           try {
-            teamData = data.match("```(.*)```")[1].replaceAll('\\n', '').replaceAll('\\"', '"');
+            if (resp.statusCode !== 200)
+              throw `Not OK status ${resp.statusCode}`;
+            let teamData = data.match("```(.*)```")[1].replaceAll('\\n', '').replaceAll('\\"', '"');
             response.writeHead(200, { 'Access-Control-Allow-Origin': '*' });
             response.end(teamData);
           }
           catch (err) {
-            console.log("Error: " + err.message);
-            response.writeHead(500);
+            console.log("Stored Team Parse Error: " + (err.message ? err.message : err));
+            response.writeHead(404, { 'Access-Control-Allow-Origin': '*' });
             response.end();
           }
         });
       }).on("error", (err) => {
-        console.log("Error: " + err.message);
-        response.writeHead(500);
+        console.log("Discord Webhook Error: " + err.message);
+        response.writeHead(500, { 'Access-Control-Allow-Origin': '*' });
         response.end();
       });
       break;
 
     case 'POST':
-      // do team submit
-
+      // gather data for webhook
       var body = '';
       request.on('data', function (data) {
         body += data;
@@ -92,7 +92,7 @@ const server = https.createServer(options, function (request, response) {
       break;
 
     default:
-      response.writeHead(400);
+      response.writeHead(400, { 'Access-Control-Allow-Origin': '*' });
       response.end('Request Invalid');
   }
 });
@@ -120,7 +120,7 @@ function DiscordPost(messageBody, response) {
   const push = https.request(options, (resp) => {
     console.log(`statusCode: ${resp.statusCode}`);
     if (resp.statusCode !== 200) {
-      response.writeHead(500);
+      response.writeHead(500, { 'Access-Control-Allow-Origin': '*' });
       response.end();
       return;
     }
@@ -135,8 +135,8 @@ function DiscordPost(messageBody, response) {
       response.end(JSON.stringify({ id: JSON.parse(data).id }));
     });
   }).on("error", (err) => {
-    console.log("Error: " + err.message);
-    response.writeHead(500);
+    console.log("Discord Webhook Error: " + err.message);
+    response.writeHead(500, { 'Access-Control-Allow-Origin': '*' });
     response.end();
   });
 
@@ -165,7 +165,7 @@ function DiscordEdit(msgID, messageBody, response) {
   const push = https.request(options, (resp) => {
     console.log(`statusCode: ${resp.statusCode}`);
     if (resp.statusCode !== 200) {
-      response.writeHead(500);
+      response.writeHead(500, { 'Access-Control-Allow-Origin': '*' });
       response.end();
       return;
     }
@@ -173,7 +173,7 @@ function DiscordEdit(msgID, messageBody, response) {
     response.end(JSON.stringify({ id: msgID }));
   }).on("error", (err) => {
     console.log("Error: " + err.message);
-    response.writeHead(500);
+    response.writeHead(500, { 'Access-Control-Allow-Origin': '*' });
     response.end();
   });
 
