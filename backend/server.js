@@ -1,7 +1,6 @@
 const fs = require('fs');
 const https = require('https');
 const url = require('url');
-const { parse } = require('querystring');
 const secrets = require('../secrets.json');
 
 const options = {
@@ -27,7 +26,6 @@ const server = https.createServer(options, function (request, response) {
 
     case 'GET':
       const queryObject = url.parse(reqUrl, true).query;
-      console.log(queryObject.edit);
       if (!queryObject.edit) {
         response.writeHead(403, { 'Access-Control-Allow-Origin': '*' });
         response.end();
@@ -79,9 +77,9 @@ const server = https.createServer(options, function (request, response) {
         }
       });
       request.on('end', function () {
-        let teamData = JSON.parse(Object.keys(parse(body))[0]);
-        // save 'em
+        let teamData = JSON.parse(body);
         console.log(teamData);
+        // save 'em
         let editID = teamData.edit;
         delete teamData.edit;
         if (editID)
@@ -105,7 +103,7 @@ function DiscordPost(messageBody, response) {
   const data = JSON.stringify({
     content: `\`\`\`${messageBody}\`\`\``,
     username: 'Toolbox Team',
-    avatar_url: 'https://tgstation13.org/wiki//images/1/12/BlueToolbox.png'
+    avatar_url: 'https://tgstation13.org/wiki/images/1/12/BlueToolbox.png'
   })
   const options = {
     hostname: 'discord.com',

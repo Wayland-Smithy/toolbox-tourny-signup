@@ -12,7 +12,8 @@ $(function () {
 });
 
 function reqTeamJSON(editID) {
-  $('#team').val("Loading...");
+  $('button > strong').text("LOADING...");
+  $('button').prop("disabled", true);
   (async () => {
     fetch(`https://api.toolbox-signup.com:8080?edit=${editID}`, {
       method: 'GET',
@@ -24,7 +25,8 @@ function reqTeamJSON(editID) {
       if (!rawResponse)
         return;
       if (rawResponse.status !== 200) {
-        $('#team').val('');
+        $('button > strong').text("SUBMIT");
+        $('button').prop("disabled", false);
         $('#badedit').prop("hidden", false);
         return;
       }
@@ -36,9 +38,10 @@ function reqTeamJSON(editID) {
       $('#member3').val(content.roster[2]);
       $('#toolbox_color').val(content.toolbox_color);
       $('#editlink').val(location.href);
-      $('button > strong').text('SUBMIT EDIT');
+      $('button > strong').text("SUBMIT EDIT");
+      $('button').prop("disabled", false);
     }).catch(() => {
-      $('#team').val('');
+      $('button > strong').text("SUBMIT");
       $('#failhard').prop("hidden", false)
     });
   })();
@@ -53,12 +56,8 @@ function sendTeamJSON() {
 
   $('button').prop("disabled", true);
   $('button > strong').text('SUBMITTING...');
-  setTimeout(() => {
-    $('button').prop("disabled", false);
-    $('button > strong').text(location.hash?.length > 1 ? 'SUBMIT EDIT' : 'SUBMIT');
-  }, 3000);
   (async () => {
-    let eStart = location.search.indexOf("?e=");
+    let eStart = $('#editlink').val().indexOf("?e=");
     const rawResponse = await fetch(`https://api.toolbox-signup.com:8080`, {
       method: 'POST',
       body: JSON.stringify(
@@ -67,7 +66,7 @@ function sendTeamJSON() {
           roster: [$('#member1').val(), $('#member2').val() || "", $('#member3').val() || ""],
           toolbox_color: $('#toolbox_color').val(),
           outfit: {},
-          edit: eStart !== -1 ? location.search.substring(eStart + 3) : null
+          edit: eStart !== -1 ? $('#editlink').val().substring(eStart + 3) : null
         }
       ),
       headers: {
@@ -77,12 +76,16 @@ function sendTeamJSON() {
     }).catch(() => {
       // something went wrong
       $('#fail').prop("hidden", false);
+      $('button').prop("disabled", false);
+      $('button > strong').text($('#editlink').val().indexOf("?e=") !== -1 ? 'SUBMIT EDIT' : 'SUBMIT');
     });
     if (!rawResponse)
       return;
     if (rawResponse.status !== 200) {
       // something went wrong
       $('#fail').prop("hidden", false);
+      $('button').prop("disabled", false);
+      $('button > strong').text($('#editlink').val().indexOf("?e=") !== -1 ? 'SUBMIT EDIT' : 'SUBMIT');
       return;
     }
     // success
@@ -90,5 +93,7 @@ function sendTeamJSON() {
     $('#editlink').val(location.origin + location.pathname + "?e=" + content.id);
     $('#lastsubmit').text(new Date().toLocaleString());
     $('#success').prop("hidden", false);
+    $('button').prop("disabled", false);
+    $('button > strong').text($('#editlink').val().indexOf("?e=") !== -1 ? 'SUBMIT EDIT' : 'SUBMIT');
   })();
 }
