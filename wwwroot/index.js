@@ -1,7 +1,4 @@
 $(function () {
-  if (location.protocol !== "http:")
-    location.href = "http://" + location.host + location.hash;
-
   // setup backup color input
   $('#toolbox_color_2').val($('#toolbox_color').val());
   $('#toolbox_color').on('input', () => { $('#toolbox_color_2').val($('#toolbox_color').val()); });
@@ -15,7 +12,7 @@ $(function () {
 
 function reqTeamJSON() {
   (async () => {
-    const rawResponse = await fetch(`http://24.35.70.76:8080?edit=${location.hash.substring(1)}`, {
+    const rawResponse = await fetch(`https://api.toolbox-signup.com:8080?edit=${location.hash.substring(1)}`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +57,7 @@ function sendTeamJSON() {
     $('button > strong').text('SUBMIT');
   }, 3000);
   (async () => {
-    const rawResponse = await fetch('http://24.35.70.76:8080', {
+    const rawResponse = await fetch(`https://api.toolbox-signup.com:8080`, {
       method: 'POST',
       body: JSON.stringify(
         {
