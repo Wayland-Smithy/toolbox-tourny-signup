@@ -1,0 +1,130 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./favicon.png">
+  <title>Toolbox Team Form</title>
+  <!-- Shamelessly copied from https://www.w3docs.com/learn-html/html-form-templates.html -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <style>
+    html,
+    body {
+      display: flex;
+      justify-content: center;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 15px;
+    }
+
+    input[type=text],
+    input[type=password] {
+      width: 100%;
+      padding: 16px 8px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .icon {
+      display: flex;
+      justify-content: center;
+      color: #4286f4;
+    }
+
+    button {
+      background-color: #4286f4;
+      color: white;
+      padding: 14px 0;
+      margin: 10px 0;
+      border: none;
+      width: 48%;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 18;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    button:disabled {
+      background-color: rgb(148, 148, 148);
+    }
+
+    .formcontainer {
+      text-align: center;
+      margin: 24px 50px 12px;
+    }
+
+    .container {
+      margin-bottom: 16px;
+      padding: 16px 0;
+      text-align: left;
+    }
+
+    span.psw {
+      float: right;
+      padding-top: 0;
+      padding-right: 15px;
+    }
+
+    /* Change styles for span on extra small screens */
+    @media screen and (max-width: 300px) {
+      span.psw {
+        display: block;
+        float: none;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <form method="dialog" onsubmit="sendTeamJSON()">
+    <h1>TOOLBOX TOURNAMENT SIGN UP</h1>
+    <div class="icon">
+      <img alt="SS13 Toolbox (soulless)" src="./BlueToolbox.png" decoding="async">
+    </div>
+    <div class="formcontainer">
+      <div class="container">
+        <label for="team"><strong>Team Name</strong></label>
+        <input id="team" type="text" placeholder="Enter Team Name" name="team" required>
+        <label for="member1"><strong>Team Member 1 (Captain)</strong></label>
+        <input id="member1" type="text" placeholder="Enter ckey" name="member1" required>
+        <label for="member2"><strong>Team Member 2</strong></label>
+        <input id="member2" type="text" placeholder="Enter ckey" name="member2">
+        <label for="member3"><strong>Team Member 3</strong></label>
+        <input id="member3" type="text" placeholder="Enter ckey" name="member3">
+        <label for="toolbox_color"><strong>Team Toolbox Color</strong></label><br />
+        <input id="toolbox_color" type="color" value="#1369b5" required><input id="toolbox_color_2"
+          style="width: 4rem;">
+      </div>
+      <button type="submit"><strong>SUBMIT</strong></button>
+      <div id="fail" class="container" style="background-color: #ff7373; text-align: center;" hidden>
+        <strong>Oops... Something went wrong. Please try again later and contact Event Staff if it does not work after a
+          while.</strong>
+      </div>
+      <div id="badedit" class="container" style="background-color: #ff7373; text-align: center;" hidden>
+        <strong>Oops... That edit link is invalid. Please submit again.</strong>
+      </div>
+      <div id="success" class="container" style="background-color: #51ff6e; text-align: center;" hidden>
+        <strong>Submission succeeded at <span id="lastsubmit">{placeholder, ignore me}</span></strong>
+      </div>
+      <div class="container" style="background-color: #eee">
+        <label for="editlink"><strong>Edit Link</strong></label>
+        <input id="editlink" type="text" name="editlink" placeholder="Pending submission..." readonly>
+        Save your edit link to make changes to your team up until the start of the tournament.<br />If you lose your
+        link contact Event Staff to recover it.
+      </div>
+      <footer>
+        Made with <b style="color: red;">♥</b> by <a href="https://github.com/Wayland-Smithy">Wayland-Smithy</a>
+      </footer>
+    </div>
+  </form>
+  <script src="./lib/jquery-3.2.1.min.js" type="text/javascript"></script>
+  <script src="./index.js" />
+</body>
+</html>
