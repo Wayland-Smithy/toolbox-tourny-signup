@@ -12,7 +12,7 @@ $(function () {
 
 function reqTeamJSON() {
   (async () => {
-    const rawResponse = await fetch(`http://127.0.0.1:8080?edit=${location.hash.substring(1)}`, {
+    const rawResponse = await fetch(`http://24.35.70.76:8080?edit=${location.hash.substring(1)}`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ function sendTeamJSON() {
     $('button > strong').text('SUBMIT');
   }, 3000);
   (async () => {
-    const rawResponse = await fetch('http://127.0.0.1:8080', {
+    const rawResponse = await fetch('http://24.35.70.76:8080', {
       method: 'POST',
       body: JSON.stringify(
         {
