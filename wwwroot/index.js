@@ -1,4 +1,7 @@
 $(function () {
+  if (location.protocol !== "http:")
+    location.href = "http://" + location.host + location.hash;
+
   // setup backup color input
   $('#toolbox_color_2').val($('#toolbox_color').val());
   $('#toolbox_color').on('input', () => { $('#toolbox_color_2').val($('#toolbox_color').val()); });
