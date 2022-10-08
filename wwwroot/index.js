@@ -41,6 +41,7 @@ function reqTeamJSON() {
     $('#member3').val(content.roster[2]);
     $('#toolbox_color').val(content.toolbox_color);
     $('#editlink').val(location.href);
+    $('button > strong').text('SUBMIT EDIT');
   })();
 }
 
@@ -54,7 +55,7 @@ function sendTeamJSON() {
   $('button > strong').text('SUBMITTING...');
   setTimeout(() => {
     $('button').prop("disabled", false);
-    $('button > strong').text('SUBMIT');
+    $('button > strong').text(location.hash?.length > 1 ? 'SUBMIT EDIT' : 'SUBMIT');
   }, 3000);
   (async () => {
     const rawResponse = await fetch(`https://api.toolbox-signup.com:8080`, {
