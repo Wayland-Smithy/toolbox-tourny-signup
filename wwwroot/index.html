@@ -98,7 +98,10 @@
 <body>
   <form method="dialog" onsubmit="sendTeamJSON()">
     <h1>TOOLBOX TOURNAMENT 2022 SIGN UP</h1>
-    <noscript><h1 style="color: #ff0000;">Scripts must be enabled to use this form. Only <a href="./index.js">index.js</a> and jQuery will be loaded.</h1></noscript>
+    <noscript>
+      <h1 style="color: #ff0000;">Scripts must be enabled to use this form. Only <a href="./index.js">index.js</a> and
+        jQuery will be loaded.</h1>
+    </noscript>
     <div class="icon">
       <img alt="SS13 Toolbox (soulless)" title="SS13 Toolbox (soulless)" src="./BlueToolbox.png" decoding="async">
     </div>
@@ -106,7 +109,8 @@
       <div class="container">
         <label for="team"><strong>Team Name</strong></label>
         <input id="team" type="text" placeholder="Enter Team Name" name="team" required>
-        <label for="member1"><strong>Team Member 1 (Captain)</strong></label>
+        <label for="member1"><strong>Team Member 1</strong> and "Team Captain" - Please join the event server 30 minutes
+          to 1 hour prior to the scheduled start time to coordinate with organizers.</label>
         <input id="member1" type="text" placeholder="Enter ckey" name="member1" required>
         <label for="member2"><strong>Team Member 2</strong></label>
         <input id="member2" type="text" placeholder="Enter ckey" name="member2">
@@ -122,8 +126,8 @@
           while.</strong>
       </div>
       <div id="failhard" class="container" style="background-color: #ff7373; text-align: center;" hidden>
-        <strong>Database unreachable. Please <a href="javascript:window.location.reload(true)">try again</a> later and contact Event Staff if it does not work after a
-          while.</strong>
+        <strong>Database unreachable. Please <a href="javascript:window.location.reload(true)">try again</a> later and
+          contact Event Staff if it does not work after a while.</strong>
       </div>
       <div id="badedit" class="container" style="background-color: #ff7373; text-align: center;" hidden>
         <strong>Oops... That edit link appears invalid. Please submit again.</strong>
@@ -135,13 +139,14 @@
         <label for="editlink"><strong>Edit Link</strong></label>
         <input id="editlink" type="text" name="editlink" placeholder="Pending submission..." readonly>
         <p style="font-size: 14px;">
-          Save your edit link to make changes to your team up until the start of the tournament.<br />If you lose your
-          link and/or need to drop out please contact Wayland#4200 or Events Staff in the <a
+          Save your edit link to make changes to your team up until the start of the tournament.<br />If you have any
+          questions, lose your link, and/or need to drop out please contact Wayland#4200 or Events Staff in the <a
             href="https://discord.tgstation13.org/">/tg/Station 13 discord.</a>
         </p>
       </div>
       <footer>
-        Made with <b style="color: red;">♥</b> by <a href="https://github.com/Wayland-Smithy">Wayland-Smithy.</a> Hosted by <a href="https://pages.github.com/""> GitHub.</a>
+        Made with <b style="color: red;">♥</b> by <a href="https://github.com/Wayland-Smithy">Wayland-Smithy.</a> Hosted
+        by <a href="https://pages.github.com/""> GitHub.</a>
       </footer>
     </div>
   </form>
