@@ -11,6 +11,10 @@ $(function () {
     reqTeamJSON(location.search.substring(eStart + 3));
 });
 
+function toggleCapt() {
+  $('#captspan').prop("hidden", !$('#captspan').prop("hidden"));
+}
+
 function reqTeamJSON(editID) {
   $('button > strong').text("LOADING...");
   $('button').prop("disabled", true);

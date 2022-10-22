@@ -79,6 +79,12 @@ const server = https.createServer(options, function (request, response) {
       request.on('end', function () {
         let teamData = JSON.parse(body);
         console.log(teamData);
+        if (!teamData.name || !teamData.roster || !teamData.toolbox_color) {
+          // invalid toolbox team data, throw away
+          response.writeHead(400, { 'Access-Control-Allow-Origin': '*' });
+          response.end('Request Invalid');
+          return;
+        }
         // save 'em
         let editID = teamData.edit;
         delete teamData.edit;
