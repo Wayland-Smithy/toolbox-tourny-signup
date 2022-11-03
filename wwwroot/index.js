@@ -41,6 +41,7 @@ function reqTeamJSON(editID) {
       $('#member2').val(content.roster[1]);
       $('#member3').val(content.roster[2]);
       $('#toolbox_color').val(content.toolbox_color);
+      $('#toolbox_color_2').val(content.toolbox_color);
       $('#editlink').val(location.href);
       $('button > strong').text("SUBMIT EDIT");
       $('button').prop("disabled", false);
