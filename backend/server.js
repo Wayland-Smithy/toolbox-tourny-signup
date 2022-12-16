@@ -1,16 +1,16 @@
 const fs = require('fs');
 const https = require('https');
 const url = require('url');
-const secrets = require('../secrets.json');
+const secrets = require('./secrets.json');
 
 const options = {
-  key: fs.readFileSync('C:/Certbot/archive/api.toolbox-signup.com/privkey2.pem'),
-  cert: fs.readFileSync('C:/Certbot/archive/api.toolbox-signup.com/fullchain2.pem'),
+  key: fs.readFileSync('./api.toolbox-signup.com/privkey2.pem'),
+  cert: fs.readFileSync('./api.toolbox-signup.com/fullchain2.pem'),
 };
 
 const server = https.createServer(options, function (request, response) {
   let reqUrl = request.url;
-  console.log("REQUESTED => ", reqUrl, request.method);
+  console.log(Date(), "REQUESTED => ", reqUrl, request.method);
 
   switch (request.method) {
     case 'OPTIONS':
@@ -48,7 +48,7 @@ const server = https.createServer(options, function (request, response) {
           try {
             if (resp.statusCode !== 200)
               throw `Not OK status ${resp.statusCode}`;
-            let teamData = data.match("```(.*)```")[1].replaceAll('\\n', '').replaceAll('\\"', '"');
+            let teamData = data.match("```(.*)```")[1].replace(/\\n/g, '').replace(/\\"/g, '"');
             response.writeHead(200, { 'Access-Control-Allow-Origin': '*' });
             response.end(teamData);
           }
@@ -77,21 +77,26 @@ const server = https.createServer(options, function (request, response) {
         }
       });
       request.on('end', function () {
-        let teamData = JSON.parse(body);
-        console.log(teamData);
-        if (!teamData.name || !teamData.roster || !teamData.toolbox_color) {
-          // invalid toolbox team data, throw away
-          response.writeHead(400, { 'Access-Control-Allow-Origin': '*' });
-          response.end('Request Invalid');
-          return;
+        try {
+          let teamData = JSON.parse(body);
+          console.log(teamData);
+          if (!teamData.name || !teamData.roster || !teamData.toolbox_color) {
+            // invalid toolbox team data, throw away
+            response.writeHead(400, { 'Access-Control-Allow-Origin': '*' });
+            response.end('Request Invalid');
+            return;
+          }
+          // save 'em
+          let editID = teamData.edit;
+          delete teamData.edit;
+          if (editID)
+            DiscordEdit(editID, JSON.stringify(teamData, null, 2), response);
+          else
+            DiscordPost(JSON.stringify(teamData, null, 2), response);
         }
-        // save 'em
-        let editID = teamData.edit;
-        delete teamData.edit;
-        if (editID)
-          DiscordEdit(editID, JSON.stringify(teamData, null, 2), response);
-        else
-          DiscordPost(JSON.stringify(teamData, null, 2), response);
+        catch (err) {
+          console.log("Team Data Post Error:", err);
+        }
       });
       break;
 
