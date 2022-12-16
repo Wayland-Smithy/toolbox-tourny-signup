@@ -43,7 +43,7 @@ const server = https.createServer(options, function (request, response) {
         resp.on('data', (chunk) => {
           data += chunk;
         });
-        // The whole response has been received. Print out the result.
+        // The whole response has been received. "Print out" the result.
         resp.on('end', () => {
           try {
             if (resp.statusCode !== 200)
@@ -66,6 +66,11 @@ const server = https.createServer(options, function (request, response) {
       break;
 
     case 'POST':
+      // Disable submissions
+      response.writeHead(400, { 'Access-Control-Allow-Origin': '*' });
+      response.end('Request Invalid');
+      break;
+
       // gather data for webhook
       var body = '';
       request.on('data', function (data) {

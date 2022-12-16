@@ -102,6 +102,7 @@
 <body>
   <form method="dialog" onsubmit="sendTeamJSON()">
     <h1>TOOLBOX TOURNAMENT 2022 SIGN UP</h1>
+    <h1 style="color: #ff0000;">Sign-ups are now closed. Please contact an organizer if you need to make changes to an existing team.</h1>
     <noscript>
       <h1 style="color: #ff0000;">Scripts must be enabled to use this form. Only <a href="./index.js">index.js</a> and
         jQuery will be loaded.</h1>
@@ -124,7 +125,8 @@
         <input id="toolbox_color" type="color" value="#1369b5" required><input id="toolbox_color_2"
           style="width: 4rem;">
       </div>
-      <button type="submit"><strong>SUBMIT</strong></button>
+      <!-- <button type="submit"><strong>SUBMIT</strong></button> -->
+      <button disabled><strong>This form is in read-only mode</strong></button>
       <div id="fail" class="container" style="background-color: #ff7373; text-align: center;" hidden>
         <strong>Oops... Something went wrong. Please try again later and contact Event Staff if it does not work after a
           while.</strong>
