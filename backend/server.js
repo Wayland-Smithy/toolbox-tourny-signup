@@ -91,12 +91,13 @@ const server = https.createServer(options, function (request, response) {
           delete teamData.edit;
           if (editID)
             DiscordEdit(editID, JSON.stringify(teamData, null, 2), response);
-          else
+          else {
             // Disable *new* submissions
             response.writeHead(400, { 'Access-Control-Allow-Origin': '*' });
             response.end('Request Invalid');
             return;
             DiscordPost(JSON.stringify(teamData, null, 2), response);
+          }
         }
         catch (err) {
           console.log("Team Data Post Error:", err);
