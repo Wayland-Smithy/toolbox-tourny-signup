@@ -16,8 +16,8 @@ function toggleCapt() {
 }
 
 function reqTeamJSON(editID) {
-  //$('button > strong').text("LOADING...");
-  //$('button').prop("disabled", true);
+  $('button > strong').text("LOADING...");
+  $('button').prop("disabled", true);
   (async () => {
     fetch(`https://api.toolbox-signup.com:8080?edit=${editID}`, {
       method: 'GET',
@@ -43,10 +43,10 @@ function reqTeamJSON(editID) {
       $('#toolbox_color').val(content.toolbox_color);
       $('#toolbox_color_2').val(content.toolbox_color);
       $('#editlink').val(location.href);
-      //$('button > strong').text("SUBMIT EDIT");
-      //$('button').prop("disabled", false);
+      $('button > strong').text("SUBMIT EDIT");
+      $('button').prop("disabled", false);
     }).catch(() => {
-      //$('button > strong').text("SUBMIT");
+      $('button > strong').text("SUBMIT");
       $('#failhard').prop("hidden", false)
     });
   })();

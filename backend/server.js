@@ -66,11 +66,6 @@ const server = https.createServer(options, function (request, response) {
       break;
 
     case 'POST':
-      // Disable submissions
-      response.writeHead(400, { 'Access-Control-Allow-Origin': '*' });
-      response.end('Request Invalid');
-      break;
-
       // gather data for webhook
       var body = '';
       request.on('data', function (data) {
@@ -97,6 +92,10 @@ const server = https.createServer(options, function (request, response) {
           if (editID)
             DiscordEdit(editID, JSON.stringify(teamData, null, 2), response);
           else
+            // Disable *new* submissions
+            response.writeHead(400, { 'Access-Control-Allow-Origin': '*' });
+            response.end('Request Invalid');
+            return;
             DiscordPost(JSON.stringify(teamData, null, 2), response);
         }
         catch (err) {

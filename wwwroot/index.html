@@ -102,7 +102,6 @@
 <body>
   <form method="dialog" onsubmit="sendTeamJSON()">
     <h1>TOOLBOX TOURNAMENT 2022 SIGN UP</h1>
-    <h1 style="color: #ff0000;">Sign-ups are now closed. Please contact an organizer if you need to make changes to an existing team.</h1>
     <noscript>
       <h1 style="color: #ff0000;">Scripts must be enabled to use this form. Only <a href="./index.js">index.js</a> and
         jQuery will be loaded.</h1>
@@ -110,10 +109,11 @@
     <div class="icon">
       <img alt="SS13 Toolbox (soulless)" title="SS13 Toolbox (soulless)" src="./BlueToolbox.png" decoding="async">
     </div>
+    <h1 style="color: #ff0000;">New Sign-ups are now closed. Only edits to existing teams can be made at this time.</h1>
     <div class="formcontainer">
       <div class="container">
         <label for="team"><strong>Team Name</strong></label>
-        <input id="team" type="text" placeholder="Enter Team Name" name="team" required>
+        <input readonly id="team" type="text" placeholder="Enter Team Name" name="team" required>
         <label for="member1"><strong>Team Member 1</strong> and <u class="capthelp" onclick="toggleCapt()">Team Captain</u></label>
         <span id="captspan" hidden>- Coordinates with organizers. Please join the event server before tournament start to prep your team outfit. It opens around 1 hour early.</span>
         <input id="member1" type="text" placeholder="Enter ckey" name="member1" required>
@@ -125,8 +125,8 @@
         <input id="toolbox_color" type="color" value="#1369b5" required><input id="toolbox_color_2"
           style="width: 4rem;">
       </div>
-      <!-- <button type="submit"><strong>SUBMIT</strong></button> -->
-      <button disabled><strong>This form is in read-only mode</strong></button>
+      <button type="submit"><strong>SUBMIT</strong></button>
+      <!-- <button disabled><strong>This form is in read-only mode</strong></button> -->
       <div id="fail" class="container" style="background-color: #ff7373; text-align: center;" hidden>
         <strong>Oops... Something went wrong. Please try again later and contact Event Staff if it does not work after a
           while.</strong>
